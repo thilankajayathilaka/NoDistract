@@ -1,16 +1,20 @@
 {
-    "manifest_version": 3,
-    "name": "NoDistract",
-    "version": "1.0",
-    "description": "Filters YouTube categories and channels to reduce distractions.",
-    "permissions": ["storage"],
-    "host_permissions": ["https://www.youtube.com/*"],
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "/assets/ext-icon.png",
-        "48": "/assets/ext-icon.png",
-        "128": "/assets/ext-icon.png"
-      }
+  "manifest_version": 3,
+  "name": "NoDistract",
+  "version": "1.0",
+  "description": "Hide YouTube Categories and Channels for a distraction-free experience",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "host_permissions": ["http://www.youtube.com/*", "https://www.youtube.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"]
     }
+  ],
+  "action": {
+    "default_popup": "popup.html"
   }
+}
