@@ -3,18 +3,16 @@
   "name": "NoDistract",
   "version": "1.0",
   "description": "Hide YouTube Categories and Channels for a distraction-free experience",
-  "permissions": ["activeTab", "storage", "scripting"],
-  "host_permissions": ["http://www.youtube.com/*", "https://www.youtube.com/*"],
-  "background": {
-    "service_worker": "background.js"
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["*://*.youtube.com/*"],
+  "action": {
+    "default_popup": "popup/popup.html"
   },
   "content_scripts": [
     {
-      "matches": ["https://*.youtube.com/*"],
-      "js": ["content.js"]
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content-scripts/youtube-modifier.js"],
+      "run_at": "document_end"
     }
-  ],
-  "action": {
-    "default_popup": "popup.html"
-  }
+  ]
 }
