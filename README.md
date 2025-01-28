@@ -63,7 +63,8 @@ _NoDistract_ is a Chrome extension designed to help you stay productive by remov
 
 ### **Popup UI**
 
-![Popup UI](https://via.placeholder.com/400x300.png?text=NoDistract+Popup+UI)
+![Popup UI](https://github.com/user-attachments/assets/7b2f3e18-b45f-436c-a4d0-4462f203f029)
+
 
 ---
 
