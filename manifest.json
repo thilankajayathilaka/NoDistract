@@ -1,18 +1,14 @@
 {
   "manifest_version": 3,
   "name": "NoDistract",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Hide YouTube Categories and Channels for a distraction-free experience",
   "permissions": ["storage", "activeTab", "scripting"],
   "host_permissions": ["*://*.youtube.com/*"],
   "action": {
     "default_popup": "popup/popup.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["*://*.youtube.com/*"],
-      "js": ["content-scripts/youtube-modifier.js"],
-      "run_at": "document_end"
-    }
-  ]
+  "background": {
+    "service_worker": "background.js"
+  }
 }
