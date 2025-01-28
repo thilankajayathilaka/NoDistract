@@ -1,79 +1,76 @@
-// content-scripts/youtube-modifier.js
+// 1. Inject the necessary CSS styles
+const style = document.createElement('style');
+style.textContent = `
+  .centered-search-masthead {
+    position: relative !important;
+    height: 100vh !important;
+  }
 
-// 1. Selectors (Update these first if needed)
+  .centered-search-container {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;s
+    transform: translate(-50%, -50%) !important;
+    z-index: 10 !important;
+    width: auto !important;
+  }
+
+  .centered-search-container .focus-message {
+    position: absolute !important;
+    top: -40px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    text-align: center !important;
+  }
+`;
+document.head.appendChild(style);
+
+// 2. Selectors (Update these first if needed)
 const SELECTORS = {
   LANDING_VIDEOS: "ytd-rich-grid-renderer #contents",
-  //recommendation selector
   SEARCH_RECOMMENDATIONS: "ytd-feed-filter-chip-bar-renderer iron-selector",
-  // search bar selector
   SEARCH_BAR: "ytd-masthead #container",
 };
 
-// 2. Utility Functions =================================
+// 3. Utility Functions
 function hideElement(selector) {
-  const elements = document.querySelectorAll(selector);
-  elements.forEach((el) => (el.style.cssText = "display: none !important;"));
+  document.querySelectorAll(selector).forEach(el => el.style.display = 'none');
 }
 
 function showElement(selector) {
-  const elements = document.querySelectorAll(selector);
-  elements.forEach((el) => (el.style.cssText = ""));
+  document.querySelectorAll(selector).forEach(el => el.style.display = '');
 }
 
 function centerSearchBar(shouldCenter) {
-  console.log("Centering requested:", shouldCenter);
-  const centerContainer = document.querySelector(
-    "#center.style-scope.ytd-masthead"
-  );
   const masthead = document.querySelector("ytd-masthead");
+  const centerContainer = document.querySelector("#center.style-scope.ytd-masthead");
 
   if (masthead && centerContainer) {
     if (shouldCenter) {
-      // Ensure the masthead height covers the viewport
-      masthead.style.position = "relative";
-      masthead.style.height = "100vh";
-
-      // Center the #center container vertically and horizontally
-      centerContainer.style.position = "absolute";
-      centerContainer.style.top = "50%";
-      centerContainer.style.left = "50%";
-      centerContainer.style.transform = "translate(-50%, -50%)";
-      centerContainer.style.zIndex = "10";
-      centerContainer.style.width = "auto"; // Preserve original width
-
-      // Add a focus message above the search bar
-      let focusMessage = document.querySelector("#focus-message");
+      masthead.classList.add('centered-search-masthead');
+      centerContainer.classList.add('centered-search-container');
+      
+      // Add focus message
+      let focusMessage = centerContainer.querySelector('.focus-message');
       if (!focusMessage) {
-        focusMessage = document.createElement("div");
-        focusMessage.id = "focus-message";
-        focusMessage.style.position = "absolute";
-        focusMessage.style.top = "-40px"; // Position above the search bar
-        focusMessage.style.left = "50%";
-        focusMessage.style.transform = "translateX(-50%)";
-        focusMessage.style.color = "#fff"; // White text
-        focusMessage.style.fontSize = "18px"; // Adjust font size
-        focusMessage.style.fontWeight = "bold";
-        focusMessage.style.textAlign = "center";
-        focusMessage.textContent = "Stay in Focus";
+        focusMessage = document.createElement('div');
+        focusMessage.className = 'focus-message';
+        focusMessage.textContent = 'Stay in Focus';
         centerContainer.appendChild(focusMessage);
       }
     } else {
-      // Reset styles to default
-      masthead.style.position = "";
-      masthead.style.height = "";
-      centerContainer.style.position = "";
-      centerContainer.style.top = "";
-      centerContainer.style.left = "";
-      centerContainer.style.transform = "";
-      centerContainer.style.zIndex = "";
-      centerContainer.style.width = "";
-
-      // Remove the focus message
-      const focusMessage = document.querySelector("#focus-message");
+      masthead.classList.remove('centered-search-masthead');
+      centerContainer.classList.remove('centered-search-container');
+      
+      // Remove focus message
+      const focusMessage = centerContainer.querySelector('.focus-message');
       if (focusMessage) focusMessage.remove();
     }
   } else {
-    console.error("Center container or masthead not found.");
+    console.error("Elements not found.");
   }
 }
 
