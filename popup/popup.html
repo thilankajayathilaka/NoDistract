@@ -1,37 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoDistract</title>
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
     <div class="container">
-      <h1>YouTube Focus</h1>
+      <header>
+        <h1>NoDistract</h1>
+        <p>Keep distractions away and stay productive!</p>
+      </header>
 
-      <div class="toggle-group">
-        <label class="switch">
-          <input type="checkbox" id="toggleVideos" />
-          <span class="slider"></span>
-        </label>
-        <span>Hide Landing Videos</span>
-      </div>
+      <main>
+        <div class="toggle-group">
+          <div class="label-group">
+            <span class="label-title">Hide Landing Videos</span>
+            <p class="label-description">
+              Removes videos from the YouTube homepage.
+            </p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="toggleVideos" />
+            <span class="slider"></span>
+          </label>
+        </div>
 
-      <div class="toggle-group">
-        <label class="switch">
-          <input type="checkbox" id="toggleRecommendations" />
-          <span class="slider"></span>
-        </label>
-        <span>Hide Search Recommendations</span>
-      </div>
+        <div class="toggle-group">
+          <div class="label-group">
+            <span class="label-title">Hide Search Recommendations</span>
+            <p class="label-description">
+              Hides search recommendations on YouTube.
+            </p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="toggleRecommendations" />
+            <span class="slider"></span>
+          </label>
+        </div>
 
-      <div class="message-group">
-        <label for="focusMessageInput">Custom Focus Message:</label>
-        <input
-          type="text"
-          id="focusMessageInput"
-          placeholder="Stay Focused! 🚀"
-        />
-        <button id="saveMessage">Save</button>
-      </div>
+        <div class="message-group">
+          <label for="focusMessageInput">Custom Focus Message</label>
+          <input
+            type="text"
+            id="focusMessageInput"
+            placeholder="Stay Focused! 🚀"
+          />
+          <button id="saveMessage" class="save-button">Save</button>
+        </div>
+      </main>
+
+      <footer>
+        <p>
+          Made with ❤️ for productivity by
+          <a
+            href="https://www.linkedin.com/in/thilanka-jayathilaka"
+            target="_blank"
+          >
+            Thilanka Jayathilaka
+          </a>
+          <br />
+          <span>Version 1.0.0</span>
+        </p>
+      </footer>
     </div>
     <script src="popup.js"></script>
   </body>
